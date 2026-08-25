@@ -1,1 +1,169 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>Big Boab Bonanza</title><style>*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#7b2fa0,#3b124f 45%,#16091d);font-family:Arial;color:#fff;text-align:center}.wrap{width:min(96vw,820px);margin:auto;padding:12px}.hero{width:130px;height:130px;margin:auto;border-radius:50%;overflow:hidden;border:4px solid #ffd34e;box-shadow:0 0 24px #ffb00099}.hero img,.cell img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}h1{margin:4px 0 0;font-size:clamp(34px,8vw,62px);line-height:.95;text-shadow:0 4px #000,0 0 18px #ffb000}.tag{margin:8px 0 12px;font-weight:700;color:#ffd86a}.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.hud div{background:#13081dcc;border:2px solid #ffffff25;border-radius:14px;padding:8px 4px;font-size:13px}.hud b{display:block;font-size:20px}.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:9px;background:#12091bcc;border:3px solid #ffffff24;border-radius:19px;overflow:hidden}.cell{aspect-ratio:1;min-width:0;border-radius:13px;background:linear-gradient(145deg,#ffffff24,#ffffff0c);display:flex;align-items:center;justify-content:center;font-size:clamp(25px,7vw,49px);position:relative;overflow:hidden}.cell.win{transform:scale(.9);filter:brightness(1.8);outline:3px solid #ffe55e}.cell.scatter{background:linear-gradient(145deg,#ffce45,#cf5c16);border:2px solid #fff09a}.cell.drop{animation:drop .48s cubic-bezier(.2,.85,.35,1.15) both;animation-delay:var(--delay)}@keyframes drop{0%{transform:translateY(-190%);opacity:.1}72%{transform:translateY(10%);opacity:1}100%{transform:translateY(0)}}.label{position:absolute;left:3px;bottom:3px;background:#111c;color:#ffd34e;font:900 9px Arial;padding:2px 4px;border-radius:5px}.badge{position:absolute;right:2px;bottom:2px;background:#e82062;padding:2px 5px;border-radius:8px;font:bold 12px Arial}.message{min-height:50px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:clamp(17px,4vw,23px)}.controls{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:8px}.controls button,.secondary button{border:0;border-radius:999px;padding:13px 7px;font-weight:900;font-size:17px}.controls #spin{background:linear-gradient(#72f387,#29bb4e);font-size:22px;box-shadow:0 5px #13792d}.controls button:disabled{opacity:.45}.secondary{margin-top:9px}.secondary button{background:#ffffff18;color:#fff;border:1px solid #ffffff2e;padding:8px 16px;font-size:13px}.rules{font-size:11px;opacity:.64;margin:12px auto;max-width:680px}</style></head><body><div class="wrap"><div class="hero"><img class="boabpic"></div><h1>BIG BOAB<br>BONANZA</h1><div class="tag">5 Teeth • Tumbles • Boab Bombs • Big Night Oot</div><div class="hud"><div>BALANCE<b id="bal">£100.00</b></div><div>BET<b id="betv">£1.00</b></div><div>FREE SPINS<b id="fs">0</b></div></div><div id="grid" class="grid"></div><div id="msg" class="message">Boab's ready. Hit SPIN.</div><div class="controls"><button id="down">BET −</button><button id="spin">SPIN</button><button id="up">BET +</button></div><div class="secondary"><button id="reset">RESET DEMO</button></div><div class="rules">Demo credits only. 8+ matching symbols anywhere pay. Winning symbols vanish and replacements slide down. 4+ BOAB scatters award 10 free spins.</div></div><script>(()=>{'use strict';const BOAB='data:image/jpeg;base64,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';document.querySelectorAll('.boabpic').forEach(x=>x.src=BOAB);const S=['🍷','💨','📱','🍟','🥡','⛓️','🦷'],M=[2,3,5,10,25,50,100];let balance=100,wager=1,free=0,busy=false,board=[];const g=document.querySelector('#grid'),msg=document.querySelector('#msg'),spin=document.querySelector('#spin');const rnd=a=>a[Math.floor(Math.random()*a.length)],pick=()=>Math.random()<.045?'B':rnd(S),money=n=>'£'+n.toFixed(2),sleep=ms=>new Promise(r=>setTimeout(r,ms));function hud(){bal.textContent=money(balance);betv.textContent=money(wager);fs.textContent=free}function cell(sym,i,drop,mults){let d=document.createElement('div');d.className='cell'+(sym==='B'?' scatter':'')+(drop?' drop':'');if(drop)d.style.setProperty('--delay',((i%6)*35)+'ms');if(sym==='B'){let im=document.createElement('img');im.src=BOAB;d.append(im);let l=document.createElement('span');l.className='label';l.textContent='BOAB';d.append(l)}else d.append(document.createTextNode(sym));if(mults&&mults[i]){let b=document.createElement('span');b.className='badge';b.textContent=mults[i]+'×';d.append(b)}return d}function render(dropIdx=[],wins=[],mults={}){g.innerHTML='';board.forEach((s,i)=>{let d=cell(s,i,dropIdx.includes(i),mults);if(wins.includes(i))d.classList.add('win');g.append(d)})}function getWins(){let x={};board.forEach((s,i)=>{if(s!=='B')(x[s]??=[]).push(i)});return Object.values(x).filter(a=>a.length>=8).flat()}function lock(v){busy=v;spin.disabled=v;down.disabled=v;up.disabled=v}async function go(){if(busy)return;if(!free&&balance<wager){msg.textContent="Boab's skint. Reset the demo.";return}lock(true);let bonus=free>0;if(bonus)free--;else balance-=wager;hud();msg.textContent=bonus?'FREE SPIN!':'Boab is on the move...';board=Array.from({length:30},pick);render([...Array(30).keys()]);await sleep(700);let sc=board.filter(x=>x==='B').length;if(sc>=4){free+=10;bonus=true;hud();msg.textContent="BOAB'S BIG NIGHT OOT! +10 FREE SPINS";await sleep(800)}let total=0,t=0;while(true){let w=getWins();if(!w.length||t++>=10)break;let mults={},mt=0;if(bonus)board.forEach((s,i)=>{if(!w.includes(i)&&s!=='B'&&Math.random()<.05){let m=rnd(M);mults[i]=m;mt+=m}});let gain=wager*(.18*w.length+.1*t)*(mt||1);total+=gain;render([],w,mults);msg.textContent='TUMBLE '+t+': '+money(gain)+(mt?' • BOAB BOMB '+mt+'×':'');await sleep(500);let falling=[];for(let col=0;col<6;col++){let survivors=[];for(let row=4;row>=0;row--){let i=row*6+col;if(!w.includes(i))survivors.unshift(board[i])}let missing=5-survivors.length,vals=Array.from({length:missing},pick).concat(survivors);for(let row=0;row<5;row++){let i=row*6+col;board[i]=vals[row];if(row<missing)falling.push(i)}}render(falling);await sleep(650)}balance+=total;hud();msg.textContent=total?'BOAB WINS '+money(total)+'!':free?free+' free spins left.':'Nae luck. Spin again.';lock(false);if(free){await sleep(650);go()}}down.onclick=()=>{if(!busy){wager=Math.max(.5,wager-.5);hud()}};up.onclick=()=>{if(!busy){wager=Math.min(5,wager+.5);hud()}};spin.onclick=go;reset.onclick=()=>{if(!busy){balance=100;wager=1;free=0;board=Array.from({length:30},pick);hud();render();msg.textContent="Boab's ready. Hit SPIN."}};reset.click()})();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Big Boab Bonanza</title>
+<style>
+*{box-sizing:border-box}
+:root{--gold:#ffd34e;--ink:#15081d}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#812fa8 0,#3b124f 46%,#15081d 100%);font-family:Arial,Helvetica,sans-serif;color:#fff;text-align:center;overflow-x:hidden}
+.wrap{width:min(96vw,820px);margin:auto;padding:10px 12px 18px}
+.hero{width:132px;height:132px;margin:auto;border-radius:50%;overflow:hidden;border:4px solid var(--gold);box-shadow:0 0 26px #ffb000aa;background:#20102a}
+.hero img,.cell img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+h1{margin:4px 0 0;font-size:clamp(34px,8vw,62px);line-height:.94;text-shadow:0 4px #000,0 0 20px #ffb000}
+.tag{margin:8px 0 11px;font-weight:800;color:#ffd86a}
+.topline{display:flex;justify-content:flex-end;margin:-2px 0 5px}
+.sound{border:1px solid #ffffff35;background:#ffffff14;color:#fff;border-radius:999px;padding:6px 10px;font-weight:800}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.hud div{background:#13081dcc;border:2px solid #ffffff25;border-radius:14px;padding:8px 4px;font-size:13px}
+.hud b{display:block;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:9px;background:#12091bcc;border:3px solid #ffffff24;border-radius:19px;overflow:hidden;box-shadow:0 12px 35px #0008}
+.cell{aspect-ratio:1;min-width:0;border-radius:13px;background:linear-gradient(145deg,#ffffff24,#ffffff0c);display:flex;align-items:center;justify-content:center;font-size:clamp(25px,7vw,49px);position:relative;overflow:hidden;will-change:transform,opacity}
+.cell.win{animation:winPulse .44s ease-in-out 2;outline:3px solid #ffe55e;z-index:2}
+@keyframes winPulse{50%{transform:scale(.88);filter:brightness(2)}}
+.cell.scatter{background:linear-gradient(145deg,#ffce45,#cf5c16);border:2px solid #fff09a;box-shadow:inset 0 0 16px #fff5}
+.cell.drop{animation:drop .5s cubic-bezier(.2,.85,.35,1.15) both;animation-delay:var(--delay)}
+@keyframes drop{0%{transform:translateY(-210%);opacity:.05}70%{transform:translateY(11%);opacity:1}100%{transform:translateY(0)}}
+.cell.vanish{animation:vanish .28s ease-in both}
+@keyframes vanish{to{transform:scale(.2) rotate(12deg);opacity:0;filter:brightness(2.5)}}
+.label{position:absolute;left:3px;bottom:3px;background:#111d;color:#ffd34e;font:900 9px Arial;padding:2px 4px;border-radius:5px}
+.badge{position:absolute;right:2px;bottom:2px;background:#e82062;padding:2px 5px;border-radius:8px;font:bold 12px Arial;box-shadow:0 0 8px #ff568c}
+.message{min-height:52px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:clamp(17px,4vw,23px);text-shadow:0 2px #000}
+.controls{display:grid;grid-template-columns:1fr 1.55fr 1fr;gap:8px}
+.controls button,.secondary button{border:0;border-radius:999px;padding:13px 7px;font-weight:900;font-size:17px;touch-action:manipulation}
+.controls button{background:#f1f1f1;color:#27122e}
+.controls #spin{background:linear-gradient(#78f58c,#2abd50);font-size:22px;box-shadow:0 5px #13792d}
+.controls #spin:active{transform:translateY(3px);box-shadow:0 2px #13792d}
+.controls button:disabled{opacity:.45}
+.secondary{margin-top:9px}
+.secondary button{background:#ffffff18;color:#fff;border:1px solid #ffffff2e;padding:8px 16px;font-size:13px}
+.rules{font-size:11px;opacity:.64;margin:12px auto;max-width:680px}
+.overlay{position:fixed;inset:0;background:radial-gradient(circle,#6e1c85dd,#09030dec 68%);z-index:50;display:none;align-items:center;justify-content:center;overflow:hidden}
+.overlay.show{display:flex;animation:fadein .2s both}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.winbox{position:relative;z-index:3;width:min(92vw,650px);padding:28px 14px;animation:slam .55s cubic-bezier(.18,.9,.32,1.3) both}
+@keyframes slam{0%{transform:scale(.2) rotate(-8deg);opacity:0}75%{transform:scale(1.08) rotate(1deg)}100%{transform:scale(1)}}
+.bigtitle{font-size:clamp(58px,15vw,112px);font-weight:1000;line-height:.8;color:#ffd84a;text-shadow:0 5px #8d3900,0 10px #260800,0 0 35px #fff15a}
+.bigsub{font-size:clamp(22px,5vw,34px);font-weight:900;margin:18px 0 4px}
+.bigamount{font-size:clamp(40px,10vw,76px);font-weight:1000;color:#7eff94;text-shadow:0 4px #064c17}
+.bigmult{font-size:22px;color:#ffe993;font-weight:900}
+.continue{margin-top:20px;border:0;border-radius:999px;padding:12px 24px;font-size:17px;font-weight:900;background:#fff;color:#28102f}
+.coin{position:absolute;top:-12vh;font-size:30px;animation:coinfall var(--dur) linear infinite;animation-delay:var(--delay);left:var(--left);z-index:1}
+@keyframes coinfall{to{transform:translateY(125vh) rotate(900deg)}}
+.bonusflash{animation:bonusFlash .25s 4}
+@keyframes bonusFlash{50%{filter:brightness(2)}}
+@media (max-width:430px){.hero{width:110px;height:110px}.wrap{padding-top:7px}.grid{gap:5px;padding:7px}}
+</style>
+</head>
+<body>
+<div class="wrap" id="game">
+  <div class="topline"><button id="sound" class="sound">🔊 SOUND ON</button></div>
+  <div class="hero"><img src="boab-face.jpg" alt="Big Boab character"></div>
+  <h1>BIG BOAB<br>BONANZA</h1>
+  <div class="tag">5 Teeth • Tumbles • Boab Bombs • Big Night Oot</div>
+  <div class="hud">
+    <div>BALANCE<b id="bal">£100.00</b></div>
+    <div>BET<b id="betv">£1.00</b></div>
+    <div>FREE SPINS<b id="fs">0</b></div>
+  </div>
+  <div id="grid" class="grid"></div>
+  <div id="msg" class="message">Boab's ready. Hit SPIN.</div>
+  <div class="controls"><button id="down">BET −</button><button id="spin">SPIN</button><button id="up">BET +</button></div>
+  <div class="secondary"><button id="reset">RESET DEMO</button></div>
+  <div class="rules">Demo credits only. 8+ matching symbols anywhere pay. Wins vanish and replacements slide down. 4+ BOAB scatters award 10 free spins. Any spin paying 20× bet or more triggers BIG WIN.</div>
+</div>
+
+<div id="bigwin" class="overlay" aria-hidden="true">
+  <div class="winbox">
+    <div class="bigtitle">BIG<br>BOAB!</div>
+    <div class="bigsub">ABSOLUTE UNIT OF A WIN</div>
+    <div id="bigamount" class="bigamount">£0.00</div>
+    <div id="bigmult" class="bigmult">20× BET</div>
+    <button id="continue" class="continue">GET BACK TO IT</button>
+  </div>
+</div>
+
+<script>
+(()=>{'use strict';
+const S=['🍷','💨','📱','🍟','🥡','⛓️','🦷'],M=[2,3,5,10,25,50,100];
+let balance=100,wager=1,free=0,busy=false,board=[],soundOn=true,audio=null;
+const g=document.querySelector('#grid'),msg=document.querySelector('#msg'),spin=document.querySelector('#spin');
+const rnd=a=>a[Math.floor(Math.random()*a.length)],pick=()=>Math.random()<.045?'B':rnd(S),money=n=>'£'+n.toFixed(2),sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+function ensureAudio(){if(!soundOn)return null;if(!audio){audio=new (window.AudioContext||window.webkitAudioContext)()}if(audio.state==='suspended')audio.resume();return audio}
+function tone(freq,dur=.08,type='sine',gain=.055,delay=0){
+  const a=ensureAudio();if(!a)return;
+  const o=a.createOscillator(),v=a.createGain(),t=a.currentTime+delay;
+  o.type=type;o.frequency.setValueAtTime(freq,t);v.gain.setValueAtTime(0.0001,t);v.gain.exponentialRampToValueAtTime(gain,t+.012);v.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(v);v.connect(a.destination);o.start(t);o.stop(t+dur+.03)
+}
+function sfx(name){
+  if(!soundOn)return;
+  if(name==='tap')tone(180,.045,'square',.025);
+  if(name==='drop'){tone(210,.045,'triangle',.025);tone(260,.04,'triangle',.018,.04)}
+  if(name==='win'){[440,554,659,880].forEach((f,i)=>tone(f,.15,'sine',.045,i*.07))}
+  if(name==='scatter'){[330,440,660,880].forEach((f,i)=>tone(f,.22,'triangle',.06,i*.09))}
+  if(name==='bomb'){tone(110,.18,'sawtooth',.055);tone(880,.12,'square',.035,.09)}
+  if(name==='big'){[261,329,392,523,659,784,1046].forEach((f,i)=>tone(f,.32,'triangle',.08,i*.11))}
+}
+function hud(){bal.textContent=money(balance);betv.textContent=money(wager);fs.textContent=free}
+function cell(sym,i,drop,mults){
+  let d=document.createElement('div');d.className='cell'+(sym==='B'?' scatter':'')+(drop?' drop':'');
+  if(drop)d.style.setProperty('--delay',((i%6)*34)+'ms');
+  if(sym==='B'){let im=document.createElement('img');im.src='boab-face.jpg';im.alt='Boab';d.append(im);let l=document.createElement('span');l.className='label';l.textContent='BOAB';d.append(l)}
+  else d.append(document.createTextNode(sym));
+  if(mults&&mults[i]){let b=document.createElement('span');b.className='badge';b.textContent=mults[i]+'×';d.append(b)}
+  return d
+}
+function render(dropIdx=[],wins=[],mults={}){
+  g.innerHTML='';board.forEach((s,i)=>{let d=cell(s,i,dropIdx.includes(i),mults);if(wins.includes(i))d.classList.add('win');g.append(d)})
+}
+function getWins(){let x={};board.forEach((s,i)=>{if(s!=='B')(x[s]??=[]).push(i)});return Object.values(x).filter(a=>a.length>=8).flat()}
+function lock(v){busy=v;spin.disabled=v;down.disabled=v;up.disabled=v}
+function vanish(indices){[...g.children].forEach((el,i)=>{if(indices.includes(i))el.classList.add('vanish')})}
+function coins(){
+  const ov=document.querySelector('#bigwin');
+  ov.querySelectorAll('.coin').forEach(x=>x.remove());
+  for(let i=0;i<38;i++){let c=document.createElement('div');c.className='coin';c.textContent=i%3===0?'💷':'🪙';c.style.setProperty('--left',(Math.random()*100)+'vw');c.style.setProperty('--dur',(2.1+Math.random()*2.4)+'s');c.style.setProperty('--delay',(-Math.random()*3)+'s');ov.append(c)}
+}
+async function bigWin(total){
+  const mult=total/wager,ov=document.querySelector('#bigwin');
+  bigamount.textContent=money(total);bigmult.textContent=mult.toFixed(1).replace('.0','')+'× BET';coins();ov.classList.add('show');ov.setAttribute('aria-hidden','false');sfx('big');
+  await new Promise(resolve=>{continue.onclick=()=>{sfx('tap');ov.classList.remove('show');ov.setAttribute('aria-hidden','true');resolve()}})
+}
+async function go(){
+  if(busy)return;ensureAudio();sfx('tap');
+  if(!free&&balance<wager){msg.textContent="Boab's skint. Reset the demo.";return}
+  lock(true);let bonus=free>0,spinBet=wager;if(bonus)free--;else balance-=wager;hud();
+  msg.textContent=bonus?'FREE SPIN! Boab is still oot...':'Boab is on the move...';
+  board=Array.from({length:30},pick);render([...Array(30).keys()]);sfx('drop');await sleep(720);
+  let sc=board.filter(x=>x==='B').length;
+  if(sc>=4){free+=10;bonus=true;hud();msg.textContent="BOAB'S BIG NIGHT OOT! +10 FREE SPINS";document.querySelector('#game').classList.add('bonusflash');sfx('scatter');await sleep(1050);document.querySelector('#game').classList.remove('bonusflash')}
+  let total=0,tumble=0;
+  while(true){
+    const wins=getWins();if(!wins.length)break;tumble++;
+    const base=spinBet*(.18*wins.length+.10*tumble),mults={};let multTotal=0;
+    if(bonus){for(let i=0;i<board.length;i++){if(!wins.includes(i)&&board[i]!=='B'&&Math.random()<.05){let m=rnd(M);mults[i]=m;multTotal+=m}}}
+    const applied=multTotal||1,gain=base*applied;total+=gain;
+    render([],wins,mults);msg.textContent='TUMBLE '+tumble+': '+money(gain)+(multTotal?' • BOAB BOMB '+applied+'×':'');multTotal?sfx('bomb'):sfx('win');
+    await sleep(620);vanish(wins);await sleep(290);
+    wins.forEach(i=>board[i]=pick());render(wins);sfx('drop');await sleep(600);
+    if(tumble>=10)break
+  }
+  balance+=total;hud();
+  if(total>0)msg.textContent='BOAB WINS '+money(total)+'!';else if(free>0)msg.textContent=free+' free spins left.';else msg.textContent='Nae luck. Spin again.';
+  if(total>=spinBet*20)await bigWin(total);
+  lock(false);
+  if(free>0){await sleep(650);go()}
+}
+function reset(){if(busy)return;sfx('tap');balance=100;wager=1;free=0;board=Array.from({length:30},pick);hud();render([...Array(30).keys()]);msg.textContent="Boab's ready. Hit SPIN."}
+down.onclick=()=>{if(!busy){ensureAudio();sfx('tap');wager=Math.max(.5,wager-.5);hud()}};
+up.onclick=()=>{if(!busy){ensureAudio();sfx('tap');wager=Math.min(5,wager+.5);hud()}};
+spin.onclick=go;reset.onclick=reset;
+sound.onclick=()=>{soundOn=!soundOn;sound.textContent=soundOn?'🔊 SOUND ON':'🔇 SOUND OFF';if(soundOn){ensureAudio();sfx('tap')}};
+reset();
+})();
+</script>
+</body>
+</html>
